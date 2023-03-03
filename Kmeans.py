@@ -162,3 +162,6 @@ class Kmeans:
         for idx, pts in enumerate(datapoints):
             self.inertia += minkowski_distance(
                 self.centroids[labels[idx]], pts, 2)**2
+
+    def predictPoint(self, datapoint):
+        return self._closest_centroid(datapoint, self.centroids)
