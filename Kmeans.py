@@ -28,7 +28,7 @@ def minkowski_distance(x1, x2, p):
 class Kmeans:
     # K = number of clusters
     # iter = number of iterations
-    def __init__(self, K, iter, p):
+    def __init__(self, K, iter, p, random_state=42):
         self.K = K
         self.iter = iter
         self.p = p
@@ -37,6 +37,8 @@ class Kmeans:
         # storing centroids
         self.centroids = []
         self.inertia = 0.0
+        self.random_state = random_state
+        np.random.seed(random_state)
 
     def plus_plus(self, ds: np.array, k, random_state=1000):
         """
@@ -79,6 +81,7 @@ class Kmeans:
 
         # initialise centroids
         if choice == 0:
+            np.random.seed(self.random_state)
             # row , column full with zero
             centroids = np.zeros((self.K, self.n_features))
             for k in range(self.K):  # iterations of
