@@ -131,17 +131,21 @@ def SVD(A):
     """
     # Compute the eigenvectors and eigenvalues of A*At or At*A, whichever is smaller
     if A.shape[0] < A.shape[1]:
-        S = np.dot(A, A.T)
-        # k = np.linalg.matrix_rank(S)/
-        k = rank_of_matrix(S)
-    else:
-        S = np.dot(A.T, A)
+        # S = np.dot(A, A.T)
+        S = A @ A.T
+        # print(A @ A.T)
         # k = np.linalg.matrix_rank(S)
-        k = rank_of_matrix(S)
+        k = rank_of_matrix(S.copy())
+    else:
+        # S = np.dot(A.T, A)
+        S = A.T @ A
+        # k = np.linalg.matrix_rank(S)
+        k = rank_of_matrix(S.copy())
 
     # eigvals, eigvecs = np.linalg.eig(S) #NOT ALLOWED
+    print(S)
     eigvals, eigvecs = eig(S)
-
+    print(eigvals)
     # Sort the eigenvectors by descending eigenvalues
     sorted_indices = np.argsort(eigvals)[::-1]
     eigvals = eigvals[sorted_indices]
