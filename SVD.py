@@ -143,9 +143,9 @@ def SVD(A):
         k = rank_of_matrix(S.copy())
 
     # eigvals, eigvecs = np.linalg.eig(S) #NOT ALLOWED
-    print(S)
+    # print(S)
     eigvals, eigvecs = eig(S)
-    print(eigvals)
+    # print(eigvals)
     # Sort the eigenvectors by descending eigenvalues
     sorted_indices = np.argsort(eigvals)[::-1]
     eigvals = eigvals[sorted_indices]
@@ -192,7 +192,7 @@ def SVD(A):
 
 def ReducedSVD(A, threshold=0, to_remove=0):
     U, s, sigma, V_trans = SVD(A)
-    print(s)
+    # print(s)
     # While converting to python code we will convert into GUI asking-
     #       - Removal based on:-
     #       - 1. Hyper parameter
@@ -201,7 +201,7 @@ def ReducedSVD(A, threshold=0, to_remove=0):
     # Removal based on hyper parameter
     if (to_remove < len(s) and to_remove > 0):
         s = s[:-to_remove]
-        print(s)
+        # print(s)
         U = U[:, :-to_remove]
         V_trans = V_trans[:-to_remove, :]
         sigma = sigma[:-to_remove, :-to_remove]
@@ -213,7 +213,7 @@ def ReducedSVD(A, threshold=0, to_remove=0):
     # Removal based on threshold
     if (threshold < s[0] and threshold > 0):
         s = s[s >= threshold]
-        print(s)
+        # print(s)
         U = U[:, :len(s)]
         V_trans = V_trans[:len(s), :]
         sigma = sigma[:len(s), :len(s)]
