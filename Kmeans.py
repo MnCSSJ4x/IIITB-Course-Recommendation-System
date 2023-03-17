@@ -102,16 +102,18 @@ class Kmeans:
             # update centroids
             centroids_old = self.centroids  # for convergence test
             self.centroids = self._get_centroids(self.clusters)
+            # print(self.centroids)
             # get cetnroids assign mean value of cluster to the centroid
             # check for convergence
             if self._isConverged(centroids_old, self.centroids):
                 break
 
             # break
+
         # classify the samples based on index of cluster
         labels = self.getClusterLabels(self.clusters)
         self.calculateInertia(X, labels)
-        return labels
+        return labels, self.centroids
         # return cluster labels
 
     def _create_clusters(self, centroids):
@@ -167,4 +169,12 @@ class Kmeans:
                 self.centroids[labels[idx]], pts, 2)**2
 
     def predictPoint(self, datapoint):
-        return self._closest_centroid(datapoint, self.centroids)
+        distances = []
+        for idx, i in enumerate(self.centroids):
+            if sum(i) == 0:
+                continue
+            else:
+                distances.append(
+                    [minkowski_distance(datapoint, i, self.p), idx])
+        distances.sort()
+        return distances[0][1]
